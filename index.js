@@ -55,18 +55,23 @@ class SignatureView extends Component {
     console.log("error", args);
   };
 
+  callWebViewSignature() {
+    this.webviewRef.injectJavaScript('window.onSubmitSignature()')
+  }
+
   render() {
     return (
       <View style={styles.webBg}>
-        <WebView
-          useWebKit={true}
-          source={this.source}
-          onMessage={this.getSignature}
-          javaScriptEnabled={true}
-          onError={this._renderError}
-        />
-      </View>
-    );
+  <WebView
+    ref={ref => (this.webviewRef = ref)}
+    useWebKit={true}
+    source={this.source}
+    onMessage={this.getSignature}
+    javaScriptEnabled={true}
+    onError={this._renderError}
+    />
+    </View>
+  );
   }
 }
 

@@ -21,6 +21,18 @@ const content = `
     window.onresize = resizeCanvas;
     resizeCanvas();
     
+    function onSignatureSubmission() {
+      if (signaturePad.isEmpty()) {
+        window.ReactNativeWebView.postMessage("EMPTY");
+      } else {
+        window.ReactNativeWebView.postMessage(signaturePad.toDataURL());
+      }
+    }
+    
+    window.onSubmitSignature = function() {
+      onSignatureSubmission()
+    }
+    
     signaturePad = new SignaturePad(canvas);
     
     clearButton.addEventListener("click", function (event) {
@@ -28,12 +40,7 @@ const content = `
     });
     
     saveButton.addEventListener("click", function (event) {
-        if (signaturePad.isEmpty()) {
-            window.ReactNativeWebView.postMessage("EMPTY");
-        } else {
-            window.ReactNativeWebView.postMessage(signaturePad.toDataURL());
-            
-        }
+      onSignatureSubmission();
     });
 `;
 
